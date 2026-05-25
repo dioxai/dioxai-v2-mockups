@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digital Oxygen AI — Custom AI Solutions by Industry</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="nav">
+  <div class="nav-inner">
+    <div class="logo">Digital Oxygen<span class="logo-dot">.</span>AI</div>
+    <nav class="nav-links">
+      <a href="#">How it works</a>
+      <a href="#">Case studies</a>
+      <a href="#">About</a>
+      <a href="#" class="nav-cta">Book a call</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero" id="hero">
+    <div class="hero-inner">
+      <div class="eyebrow" id="eyebrow">Custom AI consulting — not templates</div>
+      <h1 id="headline">What industry are you in?</h1>
+      <p class="sub" id="sub">Pick yours. We'll show you exactly what we'd build — for <em>your</em> business, not a generic demo.</p>
+
+      <div class="industry-grid" id="industryGrid">
+        <!-- tiles injected by JS -->
+      </div>
+
+      <div class="industry-detail" id="detail" aria-hidden="true">
+        <div class="detail-tag" id="detailTag"></div>
+        <h2 id="detailHeadline"></h2>
+        <p class="detail-lede" id="detailLede"></p>
+
+        <div class="detail-grid">
+          <div class="detail-block">
+            <h3>Where you're bleeding time &amp; revenue</h3>
+            <ul id="detailPains"></ul>
+          </div>
+          <div class="detail-block">
+            <h3>A recent build</h3>
+            <div class="case-card" id="detailCase"></div>
+          </div>
+          <div class="detail-block">
+            <h3>Investment range</h3>
+            <div class="pricing" id="detailPricing"></div>
+            <p class="pricing-note">Fixed scope. No retainers required. Pilot before commit.</p>
+          </div>
+        </div>
+
+        <div class="detail-cta-row">
+          <a href="https://calendly.com/" class="cta-primary" id="ctaPrimary">Book a 20-min fit call →</a>
+          <button class="cta-secondary" id="resetBtn">← Pick a different industry</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="trust">
+    <div class="trust-inner">
+      <div class="trust-item"><span class="trust-num">14</span><span class="trust-lbl">production deploys</span></div>
+      <div class="trust-item"><span class="trust-num">6</span><span class="trust-lbl">verticals served</span></div>
+      <div class="trust-item"><span class="trust-num">2-4 wk</span><span class="trust-lbl">typical pilot</span></div>
+      <div class="trust-item"><span class="trust-num">100%</span><span class="trust-lbl">custom-built</span></div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div>© 2026 Digital Oxygen AI · Bela Nova, Principal</div>
+  <div class="foot-mockup-tag">MOCKUP · v2 preview · not production</div>
+</footer>
+
+<script src="industries.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
