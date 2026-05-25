@@ -44,6 +44,24 @@
 
   const history = []; // {role, content}
 
+  // ─── Voice Demo Unlock ──────────────────────────────────────────────
+  // Detect name + email + phone in conversation → unlock voice-demo button.
+  const EMAIL_RX = /[\w.+-]+@[\w-]+\.[\w.-]+/;
+  const PHONE_RX = /\+?1?[ .-]?\(?[0-9]{3}\)?[ .-]?[0-9]{3}[ .-]?[0-9]{4}/;
+  // Naive name detect: 2+ words, alpha, after "i'm"/"this is"/"my name is" OR first short alpha line
+  const NAME_RX = /(?:i['’]m|i am|this is|my name is|name['’]?s)\s+([A-Z][a-zA-Z]+(?:\s+[A-Z][a-zA-Z]+)?)/i;
+  const lead = { name: null, email: null, phone: null, sessionId: 'mockup-' + Math.random().toString(36).slice(2, 10) };
+  function scanForLead(text) {
+    if (!text) return;
+    if (!lead.email) { const m = text.match(EMAIL_RX); if (m) lead.email = m[0]; }
+    if (!lead.phone) { const m = text.match(PHONE_RX); if (m) lead.phone = m[0]; }
+    if (!lead.name)  { const m = text.match(NAME_RX);  if (m) lead.name = m[1]; }
+    if (lead.email && lead.phone && lead.name && !document.body.classList.contains('voice-demo-unlocked')) {
+      document.body.classList.add('voice-demo-unlocked');
+      window.__dioxLead = lead;
+    }
+  }
+
   function open() { panel.classList.add('open'); panel.setAttribute('aria-hidden', 'false'); input.focus(); }
   function close() { panel.classList.remove('open'); panel.setAttribute('aria-hidden', 'true'); }
 
@@ -82,6 +100,7 @@
     input.value = '';
     append('user', text);
     history.push({ role: 'user', content: text });
+    scanForLead(text);
     const typing = appendTyping();
 
     try {
