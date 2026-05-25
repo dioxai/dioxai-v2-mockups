@@ -133,7 +133,7 @@ h1 em { color: var(--gold); font-style: italic; }
 
 /* PRICING — "Starting at" treatment */
 .pricing-from { font-family: 'Inter', sans-serif; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 4px; font-weight: 500; }
-.pricing { font-family: 'Playfair Display', serif; font-size: 32px; color: var(--navy); font-weight: 600; line-height: 1.1; }
+.pricing { font-family: 'Playfair Display', serif; font-size: 42px; color: var(--gold); font-weight: 700; line-height: 1.1; text-shadow: 0 1px 0 rgba(10,26,58,0.05); }
 
 /* DIOX CHAT WIDGET */
 #diox-chat { position: fixed; bottom: 24px; right: 24px; z-index: 9999; font-family: 'Inter', sans-serif; }
