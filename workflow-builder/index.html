@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Workflow Builder — Digital Oxygen AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="builder.css">
+</head>
+<body class="wb-body">
+<header class="nav">
+  <div class="nav-inner">
+    <a href="../" class="logo" style="text-decoration:none;color:inherit">Digital Oxygen<span class="logo-dot">.</span>AI</a>
+    <nav class="nav-links">
+      <a href="../">Industries</a>
+      <a href="./" class="active">Workflow Builder</a>
+      <a href="https://calendly.com/diox-aiconsulting/consultation" class="nav-cta">Book a call</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wb-main">
+  <section class="wb-hero">
+    <div class="wb-hero-inner">
+      <div class="eyebrow">Live workflow builder</div>
+      <h1>Show me <em>your</em> workflow.<br>I'll show you what I'd automate.</h1>
+      <p class="sub">Describe what's eating your time. Watch your current process — and the version I'd build — render side by side in 10 seconds.</p>
+
+      <form id="wbForm" class="wb-form">
+        <label for="wbPrompt" class="sr-only">Describe your workflow pain</label>
+        <textarea id="wbPrompt" rows="4" maxlength="800"
+          placeholder="Tell me what's eating your time…   e.g. 'Every time a lead fills out our contact form, my assistant has to copy it into the CRM, send a Slack ping, schedule a follow-up, and email the welcome packet — takes her 8 minutes per lead, 30 leads a day.'"></textarea>
+        <div class="wb-form-row">
+          <div class="wb-examples">
+            <span class="wb-ex-label">Try one:</span>
+            <button type="button" class="wb-ex" data-ex="0">Real estate lead</button>
+            <button type="button" class="wb-ex" data-ex="1">Med spa DMs</button>
+            <button type="button" class="wb-ex" data-ex="2">Law firm intake</button>
+          </div>
+          <button type="submit" class="wb-submit" id="wbSubmit">Generate the comparison →</button>
+        </div>
+        <div class="wb-meta" id="wbMeta">3 generations per hour · powered by Gemini 3</div>
+      </form>
+    </div>
+  </section>
+
+  <section class="wb-result" id="wbResult" aria-hidden="true">
+    <div class="wb-result-inner">
+      <div class="wb-stage" id="wbStage">
+        <div class="wb-flow wb-flow-manual" id="flowManual">
+          <div class="wb-flow-header">
+            <div class="wb-flow-tag wb-tag-manual">Today · manual</div>
+            <h3>Your current workflow</h3>
+            <div class="wb-flow-stats" id="manualStats"></div>
+          </div>
+          <div class="wb-flow-canvas" id="manualCanvas"></div>
+        </div>
+
+        <div class="wb-vs" aria-hidden="true">→</div>
+
+        <div class="wb-flow wb-flow-auto" id="flowAuto">
+          <div class="wb-flow-header">
+            <div class="wb-flow-tag wb-tag-auto">What Diox builds</div>
+            <h3>Automated</h3>
+            <div class="wb-flow-stats" id="autoStats"></div>
+          </div>
+          <div class="wb-flow-canvas" id="autoCanvas"></div>
+        </div>
+      </div>
+
+      <div class="wb-cta-row" id="wbCtaRow">
+        <a href="https://calendly.com/diox-aiconsulting/consultation" class="wb-cta-primary">
+          Schedule your consultation to build this →
+        </a>
+        <button type="button" class="wb-cta-secondary" id="wbReset">Try a different workflow</button>
+      </div>
+
+      <div class="wb-lead" id="wbLead">
+        <div class="wb-lead-text">
+          <strong>Like what you see?</strong>
+          <span>Get a written quote for this build. One email. No spam.</span>
+        </div>
+        <form id="wbLeadForm" class="wb-lead-form">
+          <input type="email" id="wbLeadEmail" placeholder="you@yourcompany.com" required>
+          <button type="submit">Send me the quote</button>
+        </form>
+        <div class="wb-lead-thanks" id="wbLeadThanks" hidden>Thanks — Bela will be in touch within 24 hours.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wb-loading" id="wbLoading" aria-hidden="true">
+    <div class="wb-loading-inner">
+      <div class="wb-spinner"></div>
+      <div class="wb-loading-text" id="wbLoadingText">Mapping your current workflow…</div>
+    </div>
+  </section>
+
+  <section class="wb-error" id="wbError" aria-hidden="true">
+    <div class="wb-error-inner">
+      <h3>Something hiccupped.</h3>
+      <p id="wbErrorMsg">Try again, or email <a href="mailto:bela@dioxaiconsulting.com">bela@dioxaiconsulting.com</a> and I'll map it for you by hand.</p>
+      <button type="button" class="wb-cta-secondary" id="wbErrorReset">Try again</button>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div>© 2026 Digital Oxygen AI · Bela Nova, Principal</div>
+  <div class="foot-mockup-tag">MOCKUP · v2 preview · not production</div>
+</footer>
+
+<script src="examples.js"></script>
+<script src="builder.js"></script>
+</body>
+</html>
