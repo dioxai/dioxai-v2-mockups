@@ -3,7 +3,94 @@
 // so behavior, knowledge, and tone match the real site.
 (function () {
   const API_URL = 'https://dioxaiconsulting.com/api/chat';
+  // Voice demo backend lives on a Vercel PREVIEW deploy (not prod) during build/test.
+  // Override via <meta name="diox-voice-demo-url" content="https://<preview>.vercel.app/api/voice-demo/request">
+  // or by setting window.DIOX_VOICE_DEMO_URL before chat.js loads.
+  const VOICE_DEMO_URL =
+    (typeof window !== 'undefined' && window.DIOX_VOICE_DEMO_URL) ||
+    (document.querySelector('meta[name="diox-voice-demo-url"]') || {}).content ||
+    'https://dioxaiconsulting.com/api/voice-demo/request';
   const CALENDLY = 'https://calendly.com/diox-aiconsulting/consultation';
+
+  // Lead state — populated as the visitor reveals info in chat.
+  const lead = { name: null, email: null, phone: null };
+  let voiceBtn = null;
+  let voiceUnlocked = false;
+
+  function extractLead(text) {
+    const emailMatch = text.match(/\b([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})\b/);
+    const phoneMatch = text.match(/(\+?1[\s.-]?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}/);
+    const nameMatch = text.match(/(?:i['’]?m|my name['’]?s? is|this is|name['’]?s)\s+([A-Z][a-zA-Z'-]{1,30}(?:\s+[A-Z][a-zA-Z'-]{1,30})?)/);
+    return {
+      name: nameMatch && nameMatch[1],
+      email: emailMatch && emailMatch[1],
+      phone: phoneMatch && phoneMatch[0],
+    };
+  }
+
+  function mergeLead(found) {
+    if (found.name && !lead.name) lead.name = found.name;
+    if (found.email && !lead.email) lead.email = found.email;
+    if (found.phone && !lead.phone) lead.phone = found.phone;
+    maybeUnlockVoiceDemo();
+  }
+
+  function maybeUnlockVoiceDemo() {
+    if (voiceUnlocked) return;
+    if (lead.name && lead.email && lead.phone) {
+      voiceUnlocked = true;
+      if (voiceBtn) {
+        voiceBtn.style.display = '';
+        voiceBtn.classList.add('diox-voice-pulse');
+      }
+      // Inline confirmation in chat
+      append('assistant', "Heads up — I just unlocked a quick voice demo for you. Tap “📞 Try a Voice Demo” at the bottom and Drew (our AI receptionist) will call you in a few seconds.");
+    }
+  }
+
+  function showToast(msg, kind) {
+    let t = document.getElementById('diox-toast');
+    if (!t) {
+      t = document.createElement('div');
+      t.id = 'diox-toast';
+      document.body.appendChild(t);
+    }
+    t.className = 'diox-toast ' + (kind || 'info');
+    t.textContent = msg;
+    t.style.opacity = '1';
+    clearTimeout(t._hideTimer);
+    t._hideTimer = setTimeout(() => { t.style.opacity = '0'; }, 6000);
+  }
+
+  async function requestVoiceDemo() {
+    if (!lead.name || !lead.email || !lead.phone) {
+      showToast('Share your name, email, and phone with Diox first.', 'warn');
+      return;
+    }
+    voiceBtn.disabled = true;
+    voiceBtn.textContent = '📞 Calling…';
+    try {
+      const res = await fetch(VOICE_DEMO_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: lead.name, email: lead.email, phone: lead.phone }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && data.ok) {
+        showToast('Calling you now — answer your phone. Drew will introduce himself.', 'success');
+        voiceBtn.textContent = '☎ Drew is calling…';
+        append('assistant', "Calling " + lead.phone + " now — Drew should be on the line in about 5 seconds.");
+      } else {
+        showToast(data.reason || 'Could not place the call. Try again in a minute.', 'warn');
+        voiceBtn.disabled = false;
+        voiceBtn.textContent = '📞 Try a Voice Demo';
+      }
+    } catch (e) {
+      showToast('Network hiccup placing the call. Try again or email info@dioxaiconsulting.com.', 'warn');
+      voiceBtn.disabled = false;
+      voiceBtn.textContent = '📞 Try a Voice Demo';
+    }
+  }
 
   const root = document.createElement('div');
   root.id = 'diox-chat';
@@ -31,6 +118,9 @@
         <input type="text" id="diox-chat-input" placeholder="Ask about what we can build for you…" autocomplete="off">
         <button type="submit" id="diox-chat-send">→</button>
       </form>
+      <button id="diox-voice-demo-btn" class="diox-voice-demo-btn" type="button" style="display:none">
+        📞 Try a Voice Demo
+      </button>
     </div>
   `;
   document.body.appendChild(root);
@@ -49,6 +139,8 @@
 
   toggle.addEventListener('click', () => panel.classList.contains('open') ? close() : open());
   closeBtn.addEventListener('click', close);
+  voiceBtn = document.getElementById('diox-voice-demo-btn');
+  voiceBtn.addEventListener('click', requestVoiceDemo);
 
   function append(role, text) {
     const wrap = document.createElement('div');
@@ -82,6 +174,7 @@
     input.value = '';
     append('user', text);
     history.push({ role: 'user', content: text });
+    mergeLead(extractLead(text));
     const typing = appendTyping();
 
     try {
