@@ -130,3 +130,84 @@ h1 em { color: var(--gold); font-style: italic; }
   .industry-grid { grid-template-columns: 1fr; }
   h1 { font-size: 36px; }
 }
+
+/* PRICING — "Starting at" treatment */
+.pricing-from { font-family: 'Inter', sans-serif; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 4px; font-weight: 500; }
+.pricing { font-family: 'Playfair Display', serif; font-size: 32px; color: var(--navy); font-weight: 600; line-height: 1.1; }
+
+/* DIOX CHAT WIDGET */
+#diox-chat { position: fixed; bottom: 24px; right: 24px; z-index: 9999; font-family: 'Inter', sans-serif; }
+#diox-chat-toggle {
+  background: var(--navy); color: var(--ivory); border: none;
+  padding: 14px 22px; border-radius: 999px; cursor: pointer;
+  font-size: 14px; font-weight: 500; letter-spacing: 0.4px;
+  display: flex; align-items: center; gap: 10px;
+  box-shadow: 0 8px 32px rgba(10,26,58,0.35); transition: all 0.25s ease;
+}
+#diox-chat-toggle:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(10,26,58,0.5); }
+#diox-chat-toggle.pulse { animation: pulseRing 2.2s ease-in-out infinite; }
+@keyframes pulseRing {
+  0% { box-shadow: 0 8px 32px rgba(10,26,58,0.35), 0 0 0 0 rgba(201,169,97,0.45); }
+  70% { box-shadow: 0 8px 32px rgba(10,26,58,0.35), 0 0 0 18px rgba(201,169,97,0); }
+  100% { box-shadow: 0 8px 32px rgba(10,26,58,0.35), 0 0 0 0 rgba(201,169,97,0); }
+}
+.diox-chat-icon { font-size: 18px; }
+.diox-chat-label { white-space: nowrap; }
+
+#diox-chat-panel {
+  position: absolute; bottom: 70px; right: 0;
+  width: 380px; max-width: calc(100vw - 32px);
+  height: 540px; max-height: calc(100vh - 120px);
+  background: var(--ivory); border: 1px solid rgba(10,26,58,0.12);
+  border-radius: 16px; box-shadow: 0 24px 60px rgba(10,26,58,0.25);
+  display: none; flex-direction: column; overflow: hidden;
+}
+#diox-chat-panel.open { display: flex; }
+.diox-chat-head { background: var(--navy); color: var(--ivory); padding: 18px 20px; display: flex; align-items: center; justify-content: space-between; }
+.diox-chat-title { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 600; }
+.diox-chat-sub { font-size: 11px; opacity: 0.75; margin-top: 2px; letter-spacing: 0.3px; }
+#diox-chat-close { background: transparent; color: var(--ivory); border: none; font-size: 26px; cursor: pointer; line-height: 1; padding: 0 4px; opacity: 0.7; }
+#diox-chat-close:hover { opacity: 1; }
+
+.diox-chat-log { flex: 1; overflow-y: auto; padding: 18px 16px; display: flex; flex-direction: column; gap: 10px; background: #faf7ee; }
+.diox-msg { display: flex; }
+.diox-msg.user { justify-content: flex-end; }
+.diox-msg-bubble {
+  max-width: 78%; padding: 10px 14px; border-radius: 14px;
+  font-size: 14px; line-height: 1.5; color: #1a1a1a;
+  background: white; border: 1px solid rgba(10,26,58,0.08);
+}
+.diox-msg.user .diox-msg-bubble { background: var(--navy); color: var(--ivory); border: none; }
+.diox-msg-cta {
+  display: inline-block; padding: 10px 16px; background: var(--gold); color: var(--navy);
+  text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 13px;
+}
+.diox-msg-cta:hover { background: #d4b771; }
+.diox-typing .diox-msg-bubble { display: flex; gap: 4px; padding: 14px; }
+.diox-typing span {
+  width: 7px; height: 7px; border-radius: 50%; background: var(--muted); opacity: 0.4;
+  animation: typingBounce 1.4s infinite;
+}
+.diox-typing span:nth-child(2) { animation-delay: 0.2s; }
+.diox-typing span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes typingBounce { 0%, 60%, 100% { transform: translateY(0); opacity: 0.4; } 30% { transform: translateY(-6px); opacity: 1; } }
+
+.diox-chat-form { display: flex; gap: 8px; padding: 12px; background: var(--ivory); border-top: 1px solid rgba(10,26,58,0.1); }
+#diox-chat-input {
+  flex: 1; padding: 12px 14px; border: 1px solid rgba(10,26,58,0.15);
+  border-radius: 10px; font-family: inherit; font-size: 14px;
+  background: white; outline: none;
+}
+#diox-chat-input:focus { border-color: var(--gold); }
+#diox-chat-send {
+  background: var(--gold); color: var(--navy); border: none;
+  padding: 0 18px; border-radius: 10px; font-size: 20px; font-weight: 600; cursor: pointer;
+}
+#diox-chat-send:hover { background: #d4b771; }
+
+@media (max-width: 520px) {
+  #diox-chat { bottom: 16px; right: 16px; }
+  .diox-chat-label { display: none; }
+  #diox-chat-toggle { padding: 14px; }
+  #diox-chat-panel { width: calc(100vw - 32px); right: 0; }
+}

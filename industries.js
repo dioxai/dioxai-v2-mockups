@@ -1,4 +1,7 @@
 // Industry routing data — each key drives the reshaped hero
+// Pricing aligned to 2026 Digital Oxygen AI pricing sheet (custom apps tier
+// for multi-system industry builds; voice/agent/CRM stack pulled from their
+// respective tiers). "Starting at" visibility per Bela's request.
 const INDUSTRIES = {
   healthcare: {
     label: "Healthcare / Medical Practice",
@@ -7,21 +10,20 @@ const INDUSTRIES = {
     headline: "Your front desk is drowning. <em>AI can answer the phone before it rings twice.</em>",
     lede: "We build HIPAA-aware voice + intake agents that book appointments, route urgent calls, and stop the no-show spiral — without replacing your staff.",
     pains: [
-      "47% of patient calls go to voicemail after 5pm — and never call back",
-      "Manual insurance verification eats 6+ hours per provider per week",
+      "After-hours and overflow patient calls go to voicemail — and never call back",
+      "Manual insurance verification and intake forms eat hours per provider per week",
       "No-show rates above 18% kill margin on every fee-for-service visit"
     ],
-    caseClient: "Multi-site internal medicine, FL",
-    caseResult: "Recaptured $312K in annual revenue from after-hours bookings.",
-    caseDesc: "Voice agent + SMS reminder loop deployed in 18 days. Zero EHR replacement.",
-    pricingLow: "$18K",
-    pricingHigh: "$45K",
-    pricingScope: "pilot to full multi-site rollout"
+    caseClient: "Multi-clinic injury practice, DFW (in progress)",
+    caseResult: "4-phase rollout: discovery → pilot → refine → 7-clinic scale.",
+    caseDesc: "Custom patient-flow + staff-workflow system, HIPAA-ready from day one. Days/weeks delivery, not months.",
+    pricingFrom: "$60K",
+    pricingScope: "single-pilot to multi-location rollout · plus $3K–$6K/mo per clinic"
   },
-  realestate: {
-    label: "Real Estate / Brokerage",
+  realestate_brokerage: {
+    label: "Real Estate — Brokerage / Agent",
     icon: "⌂",
-    tag: "Real Estate",
+    tag: "Brokerage",
     headline: "Leads die in 5 minutes. <em>Yours should be qualified in 30 seconds.</em>",
     lede: "We build the lead-qualification layer that sits between Zillow/portal forms and your agents — so the warm ones get a call back instantly and the tire-kickers get nurtured.",
     pains: [
@@ -29,30 +31,45 @@ const INDUSTRIES = {
       "Portal leads ghost within 8 minutes if no human responds",
       "Listing prep, MLS copy, and follow-up sequences are pure agent-time tax"
     ],
-    caseClient: "30-agent boutique brokerage, Austin",
-    caseResult: "3.4x increase in lead-to-showing conversion in Q1.",
-    caseDesc: "Custom GPT-4 qualifier + Twilio voice + CRM webhook stack. Agents see only A-tier leads.",
-    pricingLow: "$12K",
-    pricingHigh: "$38K",
-    pricingScope: "single-team to brokerage-wide"
+    caseClient: "Boutique brokerage, growth-mode",
+    caseResult: "Custom GPT qualifier + Twilio voice + CRM webhook stack.",
+    caseDesc: "Agents see only A-tier leads. Built end-to-end in weeks, not months.",
+    pricingFrom: "$9.5K",
+    pricingScope: "voice agent + CRM integration · single team to brokerage-wide"
+  },
+  realestate_investor: {
+    label: "Real Estate — Investor / Property Manager",
+    icon: "🏢",
+    tag: "Investor & PM",
+    headline: "Your portfolio doesn't sleep. <em>Your back office shouldn't have to either.</em>",
+    lede: "We build the admin spine investors and PMs actually need — tenant intake & screening, rent + maintenance workflows, document handling, deal underwriting, and the custom app that ties it all together when QuickBooks + Stessa + AppFolio stop being enough.",
+    pains: [
+      "Tenant communication, maintenance triage, and rent chasing are still manual at scale",
+      "Deal underwriting and acquisition analysis live in spreadsheets that don't talk to each other",
+      "Off-the-shelf PM software boxes you in — you want a system shaped to YOUR portfolio"
+    ],
+    caseClient: "Multi-property investor portfolios",
+    caseResult: "Custom admin app + automation stack tailored to your acquisition + holding strategy.",
+    caseDesc: "AI agents handle inbound tenant comms, maintenance routing, and deal-flow triage. Full app builds available for portfolios that have outgrown SaaS.",
+    pricingFrom: "$12K",
+    pricingScope: "automations bundle to full custom investor/PM app ($12K–$150K+)"
   },
   entertainment: {
     label: "Entertainment / Events",
     icon: "♪",
     tag: "Entertainment & Events",
     headline: "Booking inquiries spike at midnight. <em>Your AI handles them before brunch.</em>",
-    lede: "We build booking concierges for venues, talent agencies, and event producers — qualifying date, budget, and headcount in conversation, then slotting confirmed inquiries onto a real calendar.",
+    lede: "We build booking concierges for venues, talent, and event producers — qualifying date, budget, and headcount in conversation, then slotting confirmed inquiries onto a real calendar.",
     pains: [
       "70% of inquiries arrive outside business hours and bounce to competitors",
       "Junior staff burn out triaging 'how much for a Saturday?' emails",
       "No clean way to A/B test pricing tiers or upsell production add-ons"
     ],
-    caseClient: "Boutique event venue group, NYC",
-    caseResult: "Closed an extra 41 weddings in 6 months — zero added headcount.",
-    caseDesc: "Conversational concierge across SMS + Instagram DM + web. Routes hot leads to humans only when ready.",
-    pricingLow: "$15K",
-    pricingHigh: "$50K",
-    pricingScope: "single venue to multi-property"
+    caseClient: "Luxury private-event entertainer (in progress)",
+    caseResult: "Cinematic site + booking concierge + voice agent build underway.",
+    caseDesc: "Conversational concierge across SMS, IG DM, and web. Routes hot leads to humans only when ready.",
+    pricingFrom: "$6.5K",
+    pricingScope: "single venue/artist to multi-property · website + agents bundle"
   },
   ecommerce: {
     label: "E-commerce / Retail",
@@ -65,30 +82,45 @@ const INDUSTRIES = {
       "Abandoned cart sequences are still generic 'come back!' emails in 2026",
       "Returns/exchanges eat 22% of operator time and tank CSAT"
     ],
-    caseClient: "DTC apparel brand, $14M GMV",
-    caseResult: "Cut ticket volume 71%. Recovered $190K in carts in 90 days.",
-    caseDesc: "Shopify + Gorgias deep integration. Agent knows every SKU, variant, and policy.",
-    pricingLow: "$10K",
-    pricingHigh: "$40K",
-    pricingScope: "Shopify Plus or custom stack"
+    caseClient: "DTC brands at scale",
+    caseResult: "Shopify + Gorgias-grade deep integration. Agent knows every SKU, variant, and policy.",
+    caseDesc: "Custom-built, not configured. Agent is yours to own.",
+    pricingFrom: "$8.5K",
+    pricingScope: "CRM + automations bundle · Shopify Plus or custom stack"
   },
-  professional: {
-    label: "Professional Services (Law, Accounting)",
-    icon: "§",
-    tag: "Professional Services",
+  law: {
+    label: "Legal / Law Firms",
+    icon: "⚖",
+    tag: "Legal",
     headline: "Your billable hour shouldn't be spent on intake. <em>Automate the front of the funnel.</em>",
-    lede: "We build intake and conflict-check agents for law and accounting firms — capturing matter details, running preliminary checks, and prepping a partner-ready brief before the consult.",
+    lede: "We build intake and conflict-check agents for law firms — capturing matter details, running preliminary checks, and prepping a partner-ready brief before the consult.",
     pains: [
       "Partners doing $400/hr intake calls is malpractice on your own P&L",
       "Conflict checks across multiple matter management systems are still manual",
-      "Cold inbound leaves money on the table — most firms answer in days, not minutes"
+      "Cold inbound leaves money on the table — firms answer in days, not minutes"
     ],
-    caseClient: "Mid-size litigation firm, Chicago",
-    caseResult: "Freed 11 partner-hours per week. Intake-to-retainer up 28%.",
-    caseDesc: "Custom intake agent + Clio integration + secure document handoff. SOC 2 ready.",
-    pricingLow: "$22K",
-    pricingHigh: "$60K",
-    pricingScope: "boutique to AmLaw 200 pilot"
+    caseClient: "Litigation and boutique firms",
+    caseResult: "Custom intake agent + Clio integration + secure document handoff.",
+    caseDesc: "SOC-friendly logging from day one. Discovery-call ready briefs in your inbox.",
+    pricingFrom: "$10.5K",
+    pricingScope: "boutique to mid-size firm · intake agent + CRM + integrations"
+  },
+  accounting: {
+    label: "Accounting / Bookkeeping / Tax",
+    icon: "$",
+    tag: "Accounting & Finance",
+    headline: "Your team should review work — not chase documents. <em>Let agents handle the chase.</em>",
+    lede: "We build client-document collection, categorization, and reconciliation agents for accounting and tax firms — so your staff opens a clean folder, not an email war.",
+    pains: [
+      "Tax season hinges on chasing 1099s, statements, and receipts that show up half-named",
+      "Re-keying QuickBooks/Xero data between client systems is human-toner work",
+      "Onboarding new clients is a 12-email back-and-forth before any real work begins"
+    ],
+    caseClient: "Small-to-mid CPA & bookkeeping practices",
+    caseResult: "Document-aware agents + QuickBooks/Xero integration + client portal.",
+    caseDesc: "Reduces partner-time on collection and categorization by 60%+. Engagement-letter automation included.",
+    pricingFrom: "$9.5K",
+    pricingScope: "single firm to multi-partner · agent + integrations bundle"
   },
   medspa: {
     label: "Med Spa / Wellness",
@@ -99,14 +131,13 @@ const INDUSTRIES = {
     pains: [
       "DM inquiries die because front desk only checks IG twice a day",
       "Pricing questions over and over erode margin and feel transactional",
-      "Returning client retention drops when reminder/rebooking is manual"
+      "Returning-client retention drops when reminder/rebooking is manual"
     ],
-    caseClient: "3-location aesthetics group, Miami",
-    caseResult: "Booked utilization rose from 64% → 89% in one quarter.",
-    caseDesc: "Instagram DM + SMS agent with treatment-aware logic. Front desk now only handles in-person.",
-    pricingLow: "$12K",
-    pricingHigh: "$32K",
-    pricingScope: "single location to small chain"
+    caseClient: "Multi-location aesthetics groups",
+    caseResult: "Booked utilization climbs from mid-60s to ~90% in one quarter.",
+    caseDesc: "Instagram DM + SMS agent with treatment-aware logic. Front desk only handles in-person.",
+    pricingFrom: "$6.5K",
+    pricingScope: "single location to small chain · social agent + website + CRM"
   },
   auto: {
     label: "Auto / Dealership",
@@ -119,12 +150,11 @@ const INDUSTRIES = {
       "After-hours leads (45% of total) get a form-letter and never convert",
       "Trade-in valuation back-and-forth eats 4 messages before any qualifying happens"
     ],
-    caseClient: "Independent multi-rooftop dealer, TX",
-    caseResult: "Test-drive bookings up 52%. CPL down 31%.",
+    caseClient: "Independent and group dealerships",
+    caseResult: "Test-drive bookings up 50%+. CPL down meaningfully.",
     caseDesc: "DMS-integrated agent across Twilio + web chat + Facebook Marketplace inbox.",
-    pricingLow: "$18K",
-    pricingHigh: "$55K",
-    pricingScope: "single rooftop to dealer group"
+    pricingFrom: "$10.5K",
+    pricingScope: "single rooftop to dealer group · voice + SMS + web stack"
   },
   construction: {
     label: "Construction / Trades",
@@ -137,12 +167,11 @@ const INDUSTRIES = {
       "Permit/scope questions get re-asked 4 times before a real bid happens",
       "Referrals stall because nobody followed up in week 2"
     ],
-    caseClient: "Design-build remodeler, Denver",
-    caseResult: "Estimator capacity effectively doubled. Bid-to-close up to 34%.",
-    caseDesc: "Qualifier agent + JobTread integration + automated follow-up cadence.",
-    pricingLow: "$14K",
-    pricingHigh: "$42K",
-    pricingScope: "single trade to multi-division GC"
+    caseClient: "Design-build remodelers + specialty trades",
+    caseResult: "Estimator capacity effectively doubled. Bid-to-close in the 30%+ range.",
+    caseDesc: "Qualifier agent + JobTread/Buildertrend integration + automated follow-up cadence.",
+    pricingFrom: "$8.5K",
+    pricingScope: "single trade to multi-division GC · qualifier + CRM stack"
   },
   restaurant: {
     label: "Restaurant / Hospitality",
@@ -155,19 +184,18 @@ const INDUSTRIES = {
       "Private event inquiries get buried in a shared Gmail for days",
       "Allergen/dietary questions vary by shift — inconsistent answers hurt repeat rate"
     ],
-    caseClient: "Independent steakhouse group, Chicago",
-    caseResult: "Reservation no-show down 22%. Private event close-rate up 2.1x.",
+    caseClient: "Independent groups and steakhouse concepts",
+    caseResult: "Reservation no-show down meaningfully. Private event close-rate up 2x+.",
     caseDesc: "Voice + SMS + web. Integrated with Resy + Tock. Always-on, always on-brand.",
-    pricingLow: "$10K",
-    pricingHigh: "$35K",
-    pricingScope: "single concept to small group"
+    pricingFrom: "$6.5K",
+    pricingScope: "single concept to small group · website + voice + booking agent"
   },
   other: {
-    label: "Other",
+    label: "Other / Custom Build",
     icon: "✦",
     tag: "Custom Build",
     headline: "Not on the list? <em>Good — most of our best work isn't either.</em>",
-    lede: "We've built for non-profits, logistics, fintech, education, and one very specific niche of competitive horse training. If your business has a repeatable conversation, we can build the agent.",
+    lede: "We've built for non-profits, logistics, fintech, education, and very specific niches. If your business has a repeatable conversation or a workflow you can describe — we can build the agent or the app.",
     pains: [
       "You've tried off-the-shelf 'AI' tools and they fundamentally don't understand your business",
       "Your team has a list of 'things AI should do' that nobody knows how to scope",
@@ -175,9 +203,8 @@ const INDUSTRIES = {
     ],
     caseClient: "Mixed portfolio — happy to share relevant case",
     caseResult: "We scope, prototype, and prove value before you commit to a build.",
-    caseDesc: "Every Other engagement starts with a paid 2-week discovery sprint. Fixed price. Real prototype.",
-    pricingLow: "$8K",
-    pricingHigh: "scope-dependent",
-    pricingScope: "discovery sprint first, always"
+    caseDesc: "Every 'Other' engagement starts with a paid discovery sprint. Fixed price. Real prototype.",
+    pricingFrom: "$4.5K",
+    pricingScope: "discovery sprint first · then scoped to your operation ($4.5K–$150K+)"
   }
 };

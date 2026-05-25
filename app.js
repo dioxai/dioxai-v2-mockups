@@ -42,7 +42,7 @@
     `;
 
     document.getElementById('detailPricing').innerHTML =
-      `${ind.pricingLow} <span class="pricing-sep">—</span> ${ind.pricingHigh}`;
+      `<span class="pricing-from">Starting at</span> ${ind.pricingFrom}`;
     const note = document.querySelector('.pricing-note');
     note.textContent = `${ind.pricingScope}. Fixed scope. Pilot before commit.`;
 
