@@ -1,7 +1,6 @@
-// Industry routing data — each key drives the reshaped hero
-// Pricing aligned to 2026 Digital Oxygen AI pricing sheet (custom apps tier
-// for multi-system industry builds; voice/agent/CRM stack pulled from their
-// respective tiers). "Starting at" visibility per Bela's request.
+// Industry routing data — 2026 Diox pricing, RANGE-BASED visibility (Layer 1).
+// Detailed tier pricing lives in the chatbot system prompt (Layer 2).
+// Exact quote requires Discovery Call (Layer 3).
 const INDUSTRIES = {
   healthcare: {
     label: "Healthcare / Medical Practice",
@@ -17,8 +16,8 @@ const INDUSTRIES = {
     caseClient: "Multi-clinic injury practice, DFW (in progress)",
     caseResult: "4-phase rollout: discovery → pilot → refine → 7-clinic scale.",
     caseDesc: "Custom patient-flow + staff-workflow system, HIPAA-ready from day one. Days/weeks delivery, not months.",
-    pricingFrom: "$60K",
-    pricingScope: "single-pilot to multi-location rollout · plus $3K–$6K/mo per clinic"
+    pricingRange: "Most engagements: $30K – $120K",
+    pricingFootnote: "Pilots from $4.5K · multi-site platforms $150K+ · plus $3K–$6K/mo per clinic"
   },
   realestate_brokerage: {
     label: "Real Estate — Brokerage / Agent",
@@ -34,8 +33,8 @@ const INDUSTRIES = {
     caseClient: "Boutique brokerage, growth-mode",
     caseResult: "Custom GPT qualifier + Twilio voice + CRM webhook stack.",
     caseDesc: "Agents see only A-tier leads. Built end-to-end in weeks, not months.",
-    pricingFrom: "$9.5K",
-    pricingScope: "voice agent + CRM integration · single team to brokerage-wide"
+    pricingRange: "Most engagements: $12K – $40K",
+    pricingFootnote: "Starter voice + CRM from $8K · brokerage-wide platforms $75K+"
   },
   realestate_investor: {
     label: "Real Estate — Investor / Property Manager",
@@ -51,8 +50,8 @@ const INDUSTRIES = {
     caseClient: "Multi-property investor portfolios",
     caseResult: "Custom admin app + automation stack tailored to your acquisition + holding strategy.",
     caseDesc: "AI agents handle inbound tenant comms, maintenance routing, and deal-flow triage. Full app builds available for portfolios that have outgrown SaaS.",
-    pricingFrom: "$12K",
-    pricingScope: "automations bundle to full custom investor/PM app ($12K–$150K+)"
+    pricingRange: "Most engagements: $25K – $90K",
+    pricingFootnote: "Workflow automations from $5K · full investor/PM platforms $150K+"
   },
   entertainment: {
     label: "Entertainment / Events",
@@ -68,8 +67,8 @@ const INDUSTRIES = {
     caseClient: "Luxury private-event entertainer (in progress)",
     caseResult: "Cinematic site + booking concierge + voice agent build underway.",
     caseDesc: "Conversational concierge across SMS, IG DM, and web. Routes hot leads to humans only when ready.",
-    pricingFrom: "$6.5K",
-    pricingScope: "single venue/artist to multi-property · website + agents bundle"
+    pricingRange: "Most engagements: $15K – $50K",
+    pricingFootnote: "Website-only from $6.5K · multi-venue platforms $80K+"
   },
   ecommerce: {
     label: "E-commerce / Retail",
@@ -85,8 +84,8 @@ const INDUSTRIES = {
     caseClient: "DTC brands at scale",
     caseResult: "Shopify + Gorgias-grade deep integration. Agent knows every SKU, variant, and policy.",
     caseDesc: "Custom-built, not configured. Agent is yours to own.",
-    pricingFrom: "$8.5K",
-    pricingScope: "CRM + automations bundle · Shopify Plus or custom stack"
+    pricingRange: "Most engagements: $15K – $50K",
+    pricingFootnote: "Support agent from $8.5K · Shopify Plus deep integrations $80K+"
   },
   law: {
     label: "Legal / Law Firms",
@@ -102,8 +101,8 @@ const INDUSTRIES = {
     caseClient: "Litigation and boutique firms",
     caseResult: "Custom intake agent + Clio integration + secure document handoff.",
     caseDesc: "SOC-friendly logging from day one. Discovery-call ready briefs in your inbox.",
-    pricingFrom: "$10.5K",
-    pricingScope: "boutique to mid-size firm · intake agent + CRM + integrations"
+    pricingRange: "Most engagements: $18K – $60K",
+    pricingFootnote: "Intake agent from $10.5K · AmLaw-grade platforms $100K+"
   },
   accounting: {
     label: "Accounting / Bookkeeping / Tax",
@@ -119,8 +118,8 @@ const INDUSTRIES = {
     caseClient: "Small-to-mid CPA & bookkeeping practices",
     caseResult: "Document-aware agents + QuickBooks/Xero integration + client portal.",
     caseDesc: "Reduces partner-time on collection and categorization by 60%+. Engagement-letter automation included.",
-    pricingFrom: "$9.5K",
-    pricingScope: "single firm to multi-partner · agent + integrations bundle"
+    pricingRange: "Most engagements: $15K – $50K",
+    pricingFootnote: "Workflow bundle from $9.5K · multi-partner platforms $100K+"
   },
   medspa: {
     label: "Med Spa / Wellness",
@@ -136,8 +135,8 @@ const INDUSTRIES = {
     caseClient: "Multi-location aesthetics groups",
     caseResult: "Booked utilization climbs from mid-60s to ~90% in one quarter.",
     caseDesc: "Instagram DM + SMS agent with treatment-aware logic. Front desk only handles in-person.",
-    pricingFrom: "$6.5K",
-    pricingScope: "single location to small chain · social agent + website + CRM"
+    pricingRange: "Most engagements: $10K – $35K",
+    pricingFootnote: "Social agent + website bundle from $6.5K · chain platforms $60K+"
   },
   auto: {
     label: "Auto / Dealership",
@@ -153,8 +152,8 @@ const INDUSTRIES = {
     caseClient: "Independent and group dealerships",
     caseResult: "Test-drive bookings up 50%+. CPL down meaningfully.",
     caseDesc: "DMS-integrated agent across Twilio + web chat + Facebook Marketplace inbox.",
-    pricingFrom: "$10.5K",
-    pricingScope: "single rooftop to dealer group · voice + SMS + web stack"
+    pricingRange: "Most engagements: $18K – $60K",
+    pricingFootnote: "Voice + SMS bundle from $10.5K · dealer-group platforms $100K+"
   },
   construction: {
     label: "Construction / Trades",
@@ -170,8 +169,8 @@ const INDUSTRIES = {
     caseClient: "Design-build remodelers + specialty trades",
     caseResult: "Estimator capacity effectively doubled. Bid-to-close in the 30%+ range.",
     caseDesc: "Qualifier agent + JobTread/Buildertrend integration + automated follow-up cadence.",
-    pricingFrom: "$8.5K",
-    pricingScope: "single trade to multi-division GC · qualifier + CRM stack"
+    pricingRange: "Most engagements: $12K – $45K",
+    pricingFootnote: "Qualifier + CRM stack from $8.5K · multi-division GC platforms $80K+"
   },
   restaurant: {
     label: "Restaurant / Hospitality",
@@ -187,8 +186,8 @@ const INDUSTRIES = {
     caseClient: "Independent groups and steakhouse concepts",
     caseResult: "Reservation no-show down meaningfully. Private event close-rate up 2x+.",
     caseDesc: "Voice + SMS + web. Integrated with Resy + Tock. Always-on, always on-brand.",
-    pricingFrom: "$6.5K",
-    pricingScope: "single concept to small group · website + voice + booking agent"
+    pricingRange: "Most engagements: $10K – $35K",
+    pricingFootnote: "Website + voice bundle from $6.5K · group platforms $70K+"
   },
   other: {
     label: "Other / Custom Build",
@@ -204,7 +203,7 @@ const INDUSTRIES = {
     caseClient: "Mixed portfolio — happy to share relevant case",
     caseResult: "We scope, prototype, and prove value before you commit to a build.",
     caseDesc: "Every 'Other' engagement starts with a paid discovery sprint. Fixed price. Real prototype.",
-    pricingFrom: "$4.5K",
-    pricingScope: "discovery sprint first · then scoped to your operation ($4.5K–$150K+)"
+    pricingRange: "Custom-scoped after a 20-min fit call",
+    pricingFootnote: "Discovery sprints from $4.5K · custom apps $40K–$500K+ based on scope"
   }
 };

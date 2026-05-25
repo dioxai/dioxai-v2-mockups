@@ -42,9 +42,9 @@
     `;
 
     document.getElementById('detailPricing').innerHTML =
-      `<span class="pricing-from">Starting at</span> ${ind.pricingFrom}`;
+      `<span class="pricing-from">Investment</span><span class="pricing-value">${ind.pricingRange}</span>`;
     const note = document.querySelector('.pricing-note');
-    note.textContent = `${ind.pricingScope}. Fixed scope. Pilot before commit.`;
+    note.textContent = `${ind.pricingFootnote}. Custom-scoped after a 20-min fit call.`;
 
     hero.classList.add('routed');
     detail.classList.add('active');
