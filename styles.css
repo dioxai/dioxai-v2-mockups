@@ -33,40 +33,20 @@ h1 { font-family: 'Playfair Display', serif; font-size: clamp(38px, 5.5vw, 64px)
 h1 em { color: var(--gold); font-style: italic; }
 .sub { font-size: 18px; line-height: 1.55; max-width: 640px; color: rgba(244,241,232,0.78); margin-bottom: 48px; transition: opacity 0.4s; }
 
-/* GRID — McKinsey-style descending cascade.
-   Each column drops progressively, creating an editorial diagonal flow.
-   Tiles are flexible-height to allow visual rhythm. */
+/* GRID — flat editorial grid (McKinsey cascade removed per Bela May'26) */
 .industry-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 14px 18px;
   transition: all 0.5s ease;
-  padding-bottom: 120px; /* room for last column's descent */
 }
-.industry-grid .tile:nth-child(5n+1) { transform: translateY(0); }
-.industry-grid .tile:nth-child(5n+2) { transform: translateY(22px); }
-.industry-grid .tile:nth-child(5n+3) { transform: translateY(44px); }
-.industry-grid .tile:nth-child(5n+4) { transform: translateY(66px); }
-.industry-grid .tile:nth-child(5n+5) { transform: translateY(88px); }
-.industry-grid .tile:nth-child(5n+1):hover,
-.industry-grid .tile:nth-child(5n+2):hover,
-.industry-grid .tile:nth-child(5n+3):hover,
-.industry-grid .tile:nth-child(5n+4):hover,
-.industry-grid .tile:nth-child(5n+5):hover {
-  transform: translateY(calc(var(--cascade-y, 0px) - 4px));
-}
-.industry-grid .tile:nth-child(5n+1) { --cascade-y: 0px; }
-.industry-grid .tile:nth-child(5n+2) { --cascade-y: 22px; }
-.industry-grid .tile:nth-child(5n+3) { --cascade-y: 44px; }
-.industry-grid .tile:nth-child(5n+4) { --cascade-y: 66px; }
-.industry-grid .tile:nth-child(5n+5) { --cascade-y: 88px; }
 .tile {
   background: rgba(244,241,232,0.04);
   border: 1px solid rgba(201,169,97,0.25);
   padding: 22px 18px;
   border-radius: 4px;
   cursor: pointer;
-  transition: background 0.25s ease, border-color 0.25s ease, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease;
+  transition: background 0.25s ease, border-color 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
   text-align: left;
   color: var(--ivory);
   font-family: inherit;
@@ -80,6 +60,7 @@ h1 em { color: var(--gold); font-style: italic; }
 .tile:hover {
   background: rgba(201,169,97,0.12);
   border-color: var(--gold);
+  transform: translateY(-2px);
   box-shadow: 0 12px 28px rgba(5,13,32,0.45);
 }
 .tile-icon { font-size: 22px; margin-bottom: 8px; opacity: 0.85; }
@@ -154,10 +135,6 @@ h1 em { color: var(--gold); font-style: italic; }
   .nav-links a:not(.nav-cta) { display: none; }
   .hero { padding: 60px 22px 80px; }
   .nav-inner { padding: 18px 22px; }
-}
-@media (max-width: 900px) {
-  .industry-grid { padding-bottom: 0; }
-  .industry-grid .tile { transform: none !important; --cascade-y: 0px !important; }
 }
 @media (max-width: 520px) {
   .industry-grid { grid-template-columns: 1fr; }

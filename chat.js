@@ -90,22 +90,38 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ messages: history })
       });
-      const data = await res.json();
       typing.remove();
-      const reply = data.message || data.content || data.reply || "Hmm — I'm having trouble connecting. Try again or email info@dioxaiconsulting.com.";
-      // Handle [[SHOW_CALENDLY]] token
-      if (reply.includes('[[SHOW_CALENDLY]]')) {
-        const parts = reply.split('[[SHOW_CALENDLY]]');
-        if (parts[0].trim()) append('assistant', parts[0].trim());
-        append('assistant', '[[SHOW_CALENDLY]]');
-        if (parts[1] && parts[1].trim()) append('assistant', parts[1].trim());
-      } else {
-        append('assistant', reply);
+      if (!res.ok) {
+        const errJson = await res.json().catch(() => ({}));
+        append('assistant', errJson.error || "I'm having trouble connecting right now. Email info@dioxaiconsulting.com.");
+        return;
+      }
+      // Stream is text/plain — read chunk by chunk into a single bubble
+      const bubble = append('assistant', '');
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      let reply = '';
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        reply += decoder.decode(value, { stream: true });
+        // Handle Calendly token mid-stream — split content vs. token
+        if (reply.includes('[[SHOW_CALENDLY]]')) {
+          const [pre, post] = reply.split('[[SHOW_CALENDLY]]');
+          bubble.textContent = pre.trim();
+          if (!document.querySelector('.diox-msg-cta-injected')) {
+            const ctaBubble = append('assistant', '[[SHOW_CALENDLY]]');
+            ctaBubble.classList.add('diox-msg-cta-injected');
+          }
+        } else {
+          bubble.textContent = reply;
+        }
+        log.scrollTop = log.scrollHeight;
       }
       history.push({ role: 'assistant', content: reply });
     } catch (err) {
       typing.remove();
-      append('assistant', "I couldn't reach the chat brain — the mockup is hosted separately. On the live site at dioxaiconsulting.com I'd answer instantly. For now, email info@dioxaiconsulting.com or book at " + CALENDLY);
+      append('assistant', "Couldn't reach Diox just now. Email info@dioxaiconsulting.com or book at " + CALENDLY);
     }
   });
 
