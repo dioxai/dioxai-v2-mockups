@@ -269,6 +269,35 @@
     leadThanks.hidden = false;
   });
 
+  // ===== Debug / screenshot hooks =====
+  const debug = new URLSearchParams(location.search).get("debug");
+  if (debug === "loading") {
+    promptEl.value = "Every time a Zillow lead comes in my assistant has to look them up, draft a callback script, and ping me on Slack — takes 12 minutes each, 25 leads a day.";
+    showLoading();
+    cycleLoadingText();
+  } else if (debug === "example") {
+    const idx = parseInt(new URLSearchParams(location.search).get("ex") || "0", 10);
+    const ex = window.WB_EXAMPLES[idx];
+    if (ex) {
+      promptEl.value = ex.prompt;
+      // Render with no animation delays so headless screenshot catches the final state
+      const orig = window.requestAnimationFrame;
+      renderResult(ex.result);
+      // Force-finish animations
+      setTimeout(() => {
+        document.querySelectorAll(".wb-node, .wb-arrow").forEach((el) => {
+          el.style.animation = "none";
+          el.style.opacity = "1";
+          el.style.transform = "none";
+        });
+        flowManual.classList.add("visible");
+        flowAuto.classList.add("visible");
+        ctaRow.classList.add("visible");
+        leadBox.classList.add("visible");
+      }, 50);
+    }
+  }
+
   // ===== Reset =====
   $("wbReset").addEventListener("click", () => {
     result.classList.remove("active"); result.setAttribute("aria-hidden", "true");
